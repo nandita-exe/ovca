@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ovarian Cancer Awareness</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+ 
+      <!-- <div class="container"> -->
+        <header class="d-flex flex-wrap align-items-center justify-content-start py-3 mb-4 border-bottom">
+          <div class="col-md-4 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+              <h1 style="color: palevioletred;">OvCa</h1>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="navigation-bar">
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-between mb-md-0 py-2 px-5">
+            <li><a href="/" class="px-3 link-secondary">Home</a></li>
+            <li><a href="/prediction" class="active px-3">Prediction</a></li>
+            <li><a href="/about" class="px-3">About</a></li>
+            <li><a href="/faqs" class="px-3">FAQs</a></li>
+          </ul>
+        </div>
+        </div>
+
+        </header>
+
+
+        <div class="container">
+            <form action="{{ url_for('predict') }}" method="post">
+                <h1>Make Prediction</h1>
+                <div class="container">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label for="Age">Age:</label>
+                        <input type="text" id="Age" class="form-control" name="Age">
+                        
+                        <label for="ALB">ALB:</label>
+                        <input type="text" id="ALB" class="form-control" name="ALB">
+                        
+                        <label for="ALP">ALP:</label>
+                        <input type="text" id="ALP" class="form-control" name="ALP">
+                        
+                        <label for="AST">AST:</label>
+                        <input type="text" id="AST" class="form-control"  name="AST"> 
+
+                        <label for="CA125">CA125:</label>
+                        <input type="text" id="CA125" class="form-control" name="CA125">
+
+                        <label for="HE4">HE4:</label>
+                        <input type="text" id="HE4" class="form-control" name="HE4">
+
+                        <label for="HE4">HGB:</label>
+                        <input type="text" id="HE4" class="form-control" name="HGB">
+
+                        <label for="IBIL">IBIL:</label>
+                          <input type="text" id="IBIL" class="form-control" name="IBIL" required>
+                      </div>
+
+                      <div class="col-md-6">
+                          
+
+                          <label for="LYM#">LYM#:</label>
+                          <input type="text" id="LYM#" class="form-control" name="LYM#" required>
+
+                          <label for="LYM%">LYM%:</label>
+                          <input type="text" id="LYM%" class="form-control" name="LYM%" required>
+              
+                          <label for="NEU">NEU:</label>
+                          <input type="text" id="NEU" class="form-control" name="NEU" required>
+
+                          <label for="Menopause">Menopause:</label>
+                          <select id="Menopause" class="form-control" name="Menopause">
+                              <option value="0">No</option>
+                              <option value="1">Yes</option>
+                          </select>
+
+                          <label for="PCT">PCT:</label>
+                          <input type="text" id="PCT" class="form-control" name="PCT" required>
+
+                          <label for="PLT">PLT:</label>
+                          <input type="text" id="PLT" class="form-control" name="PLT" required>
+
+                          <label for="TBIL">TBIL:</label>
+                          <input type="text" id="TBIL" class="form-control" name="TBIL" required>
+
+
+                      </div>
+                    </div>
+                    
+                
+
+                    <div class="col-md-6">
+                        <input type="submit" value="Predict" class="btn main-btn mt-4">
+                      </div>
+                  </div>
+                  
+            </form>
+
+            <div class="card">
+              <div id="prediction-result">
+                {% if prediction is not none %}
+                  {% if prediction==0 %}
+                    <h2>Prediction: The person seems to have Ovarian Cancer{{ prediction }}</h2>
+                  {% elif prediction==1 %}
+                    <h2>Prediction: The person  seem to have Benign Ovarian Tumor{{ prediction }}</h2>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+        </div>
+
+          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+              <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+            </div>
+        
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+            </ul>
+          </footer>
+
+          <!-- <script>
+            $('#prediction-form').submit(function (e) {
+                e.preventDefault();
+                var AFP = $('#AFP').val();
+        var Age = $('#Age').val();
+        var ALB = $('#ALB').val();
+        var ALP = $('#ALP').val();
+        var AST = $('#AST').val();
+        var Ca = $('#Ca').val();
+        var CA125 = $('#CA125').val();
+        var CA199 = $('#CA19-9').val();
+        var CEA = $('#CEA').val();
+        var HE4 = $('#HE4').val();
+        var LYM = $('#LYM\\%').val();
+        var Menopause = $('#Menopause').val();
+        var Na = $('#Na').val();
+        var PDW = $('#PDW').val();
+        var PLT = $('#PLT').val();
+    
+        var inputData = {
+            "AFP": AFP,
+            "Age": Age,
+            "ALB": ALB,
+            "ALP": ALP,
+            "AST": AST,
+            "Ca": Ca,
+            "CA125": CA125,
+            "CA19-9": CA199,
+            "CEA": CEA,
+            "HE4": HE4,
+            "LYM%": LYM,
+            "Menopause": Menopause,
+            "Na": Na,
+            "PDW": PDW,
+            "PLT": PLT
+            // Add more inputs as needed
+        };
+    
+                $.ajax({
+                    type: 'POST',
+                    url: '/predict',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify(inputData),
+                    success: function(response) {
+                      // $('#prediction-result').html('Prediction: '+ response.prediction);
+                    if (response.prediction==0){
+    
+                      $('#prediction-result').html('Prediction: Benign');
+                      console.log("1")
+                    }else{
+                      $('#prediction-result').html('Prediction: Malign');
+                      console.log("0")
+                    }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        </script> -->
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

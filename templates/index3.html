@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ML Model Deployment</title>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+  <div class="container ">
+    <div class="mt-4 row justify-content-center">
+    <div class="col-6 card">
+      <form id="prediction-form" method="" class="m-4">
+      <h1>ML Model Deployment</h1>
+
+        <label for="AFP">AFP:</label>
+        <input type="text" id="AFP" class="form-control" name="AFP">
+        
+        <label for="Age">Age:</label>
+        <input type="text" id="Age" class="form-control" name="Age">
+        
+        <label for="ALB">ALB:</label>
+        <input type="text" id="ALB" class="form-control" name="ALB">
+        
+        <label for="ALP">ALP:</label>
+        <input type="text" id="ALP" class="form-control" name="ALP">
+        
+        <label for="AST">AST:</label>
+        <input type="text" id="AST" class="form-control"  name="AST">
+        
+        <label for="Ca">Ca:</label>
+        <input type="text" id="Ca" class="form-control" name="Ca">
+        
+        <label for="CA125">CA125:</label>
+        <input type="text" id="CA125" class="form-control" name="CA125">
+        
+        <label for="CA19-9">CA19-9:</label>
+        <input type="text" id="CA19-9" class="form-control" name="CA19-9">
+        
+        <label for="CEA">CEA:</label>
+        <input type="text" id="CEA" class="form-control" name="CEA">
+        
+        <label for="HE4">HE4:</label>
+        <input type="text" id="HE4" class="form-control" name="HE4">
+        
+        <label for="LYM%">LYM%:</label>
+        <input type="text" id="LYM%" class="form-control" name="LYM%">
+        
+        <label for="Menopause">Menopause:</label>
+        <select id="Menopause" class="form-control" name="Menopause">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+        
+        <label for="Na">Na:</label>
+        <input type="text" id="Na" class="form-control"  name="Na">
+        
+        <label for="PDW">PDW:</label>
+        <input type="text" id="PDW" class="form-control"  name="PDW">
+        
+        <label for="PLT">PLT:</label>
+        <input type="text" id="PLT" class="form-control"  name="PLT">
+        
+        <input type="submit" value="Predict" class="btn btn-primary">
+
+
+        <!-- <input type="text" id="input1" name="input1" placeholder="Input 1"><br><br>
+        <input type="text" id="input2" name="input2" placeholder="Input 2"><br><br>
+        <input type="submit" value="Predict"> -->
+    </form>
+</div>
+<div class="col-3 card"><div id="prediction-result"></div></div>
+</div>
+</div>
+    
+
+    <script>
+        $('#prediction-form').submit(function (e) {
+            e.preventDefault();
+
+            // var input1 = $('#input1').val();
+            // var input2 = $('#input2').val();
+            // // Collect other input values if needed
+
+            // var inputData = {
+            //     "input1": input1,
+            //     "input2": input2
+            //     // Add more inputs if needed
+            // };
+            var AFP = $('#AFP').val();
+    var Age = $('#Age').val();
+    var ALB = $('#ALB').val();
+    var ALP = $('#ALP').val();
+    var AST = $('#AST').val();
+    var Ca = $('#Ca').val();
+    var CA125 = $('#CA125').val();
+    var CA199 = $('#CA19-9').val();
+    var CEA = $('#CEA').val();
+    var HE4 = $('#HE4').val();
+    var LYM = $('#LYM\\%').val();
+    var Menopause = $('#Menopause').val();
+    var Na = $('#Na').val();
+    var PDW = $('#PDW').val();
+    var PLT = $('#PLT').val();
+
+    var inputData = {
+        "AFP": AFP,
+        "Age": Age,
+        "ALB": ALB,
+        "ALP": ALP,
+        "AST": AST,
+        "Ca": Ca,
+        "CA125": CA125,
+        "CA19-9": CA199,
+        "CEA": CEA,
+        "HE4": HE4,
+        "LYM%": LYM,
+        "Menopause": Menopause,
+        "Na": Na,
+        "PDW": PDW,
+        "PLT": PLT
+        // Add more inputs as needed
+    };
+
+            $.ajax({
+                type: 'POST',
+                url: '/predict',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify(inputData),
+                success: function(response) {
+                  // $('#prediction-result').html('Prediction: '+ response.prediction);
+                if (response.prediction==0){
+
+                  $('#prediction-result').html('Prediction: Benign');
+                }else{
+                  $('#prediction-result').html('Prediction: Malign');
+                }
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

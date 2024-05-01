@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ovarian Cancer Awareness</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+ 
+      <!-- <div class="container"> -->
+        <header class="d-flex flex-wrap align-items-center justify-content-start py-3 mb-4 border-bottom">
+          <div class="col-md-4 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+              <h1 style="color: palevioletred;">OvCa</h1>
+            </a>
+          </div>
+
+          <div class="col-md-4">
+            <div class="navigation-bar">
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-between mb-md-0 py-2 px-5">
+            <li><a href="/" class="px-3 link-secondary">Home</a></li>
+            <li><a href="/prediction" class="px-3">Prediction</a></li>
+            <li><a href="/about" class="active px-3">About</a></li>
+            <li><a href="/faqs" class="px-3">FAQs</a></li>
+          </ul>
+        </div>
+        </div>
+        
+        </header>
+
+
+        <div class="container mt-5">
+          <div class="mb-2">
+            <h1>Predicting Ovarian Cancer Using Machine Learning</h1>
+              Ovarian cancer is a serious health concern, often detected at advanced stages, making treatment challenging. However, recent advances in machine learning (ML) have opened new avenues for early detection through the analysis of biomarkers. Here, we explain how our ML model works to predict ovarian cancer using a panel of biomarkers.
+          </div>
+          <div class="mb-3">
+            <h1>Understanding Biomarkers</h1>
+Biomarkers are substances or molecules that can be measured in the blood or other bodily fluids and can indicate the presence of cancer. These may include:
+
+
+<ul>
+  <li>Proteins: Specific proteins may be present in higher or lower concentrations in the blood when ovarian cancer is present.</li>
+  <li>Genetic markers: Alterations in certain genes can be indicative of an increased risk or presence of ovarian cancer.</li>
+</ul>
+
+          </div>
+            <h2>Biomarker Data</h2>
+            <table class="table table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Abreviation</th>
+                  <th>Biomarker Name</th>
+                  <th>Sample type</th>
+                  <th>Instrument</th>
+                  <th>Method</th>
+                  <th>Lower limit</th>
+                  <th>Upper Limit</th>
+                  <th>Unit</th>
+                </tr>
+                <tr>
+                  <td>AST</td>
+                  <td>Aspartate aminotransferase</td>
+                  <td>serum</td>
+                  <td>Beckman Coulter AU5800</td>
+                  <td>MDH method</td>
+                  <td>6</td>
+                  <td>40</td>
+                  <td>u/l</td>
+                </tr>
+                <tr>
+                  <td>ALB</td>
+                  <td>albumin</td>
+                  <td>serum</td>
+                  <td>Beckman Coulter AU5800</td>
+                  <td>bromcresol green method</td>
+                  <td>35</td>
+                  <td>55</td>
+                  <td>g/l</td>
+                </tr>
+                <tr>
+                  <td>HGB</td>
+                  <td>hemoglobin</td>
+                  <td>full blood</td>
+                  <td>Sysmex XE-2100</td>
+                  <td>SLS-Hemoglobin method</td>
+                  <td>110</td>
+                  <td>150</td>
+                  <td>g/l</td>
+                </tr>
+                <tr>
+                  <td>HE4</td>
+                  <td>human epididymis protein 4</td>
+                  <td>serum</td>
+                  <td>Roche Cobas 8000</td>
+                  <td>ECLIA</td>
+                  <td>0</td>
+                  <td>140</td>
+                  <td>pmol/L</td>
+                </tr>
+                <tr>
+                  <td>LYM#</td>
+                  <td>lymphocyte count</td>
+                  <td>full blood</td>
+                  <td>Sysmex XE-2100</td>
+                  <td>FCM with semiconductor laser</td>
+                  <td>1.1</td>
+                  <td>3.2</td>
+                  <td>10^9/L</td>
+                </tr>
+                <tr>
+                  <td>CA125</td>
+                  <td>Carbohydrate antigen 125</td>
+                  <td>serum</td>
+                  <td>Roche Cobas 8000</td>
+                  <td>ECLIA</td>
+                  <td>0</td>
+                  <td>35</td>
+                  <td>U/ml</td>
+                </tr>
+                <tr>
+                  <td>LYM%</td>
+                  <td>lymphocyte ratio</td>
+                  <td>full blood</td>
+                  <td>Sysmex XE-2100</td>
+                  <td>Calculation method</td>
+                  <td>20</td>
+                  <td>50</td>
+                  <td>%</td>
+                </tr>
+                <tr>
+                  <td>IBIL</td>
+                  <td>Indirect bilirubin</td>
+                  <td>serum</td>
+                  <td>Beckman Coulter AU5800</td>
+                  <td>Calculation</td>
+                  <td>2</td>
+                  <td>15</td>
+                  <td>umol/L</td>
+                </tr>
+                <tr>
+                  <td>PLT</td>
+                  <td>platelet count</td>
+                  <td>full blood</td>
+                  <td>Sysmex XE-2100</td>
+                  <td>Hydrodynamic Focusing DC method</td>
+                  <td>125</td>
+                  <td>350</td>
+                  <td>10^9/L</td>
+                </tr>
+                <tr>
+                  <td>NEU</td>
+                  <td>neutrophil ratio</td>
+                  <td>full blood</td>
+                  <td>Sysmex XE-2100</td>
+                  <td>Calculation method</td>
+                  <td>40</td>
+                  <td>75</td>
+                  <td>%</td>
+                </tr>
+                <tr>
+                  <td>PCT</td>
+                  <td>thrombocytocrit</td>
+                  <td>full blood</td>
+                  <td>Sysmex XE-2100</td>
+                  <td>Calculation method</td>
+                  <td>0.114</td>
+                  <td>0.282</td>
+                  <td>L/L</td>
+                </tr>
+                <tr>
+                  <td>TBIL</td>
+                  <td>total bilirubin</td>
+                  <td>serum</td>
+                  <td>Beckman Coulter AU5800</td>
+                  <td>Vanadate oxidation</td>
+                  <td>4</td>
+                  <td>19</td>
+                  <td>μmol/l</td>
+                </tr>
+                <tr>
+                  <td>ALP</td>
+                  <td>Alkaline phosphatase</td>
+                  <td>serum</td>
+                  <td>Beckman Coulter AU5800</td>
+                  <td>NPP substrate-AMP buffer method</td>
+                  <td>25</td>
+                  <td>130</td>
+                  <td>u/l</td>
+                </tr>
+              </table>
+              <h3>How Our Model Works</h3>
+<ol>
+    <li><strong>Data Collection:</strong> We gather data from a diverse group of women, including information about their medical history and measurements of various biomarkers.</li>
+    <li><strong>Model Training:</strong> The data is split into training and testing sets. Our machine learning model is trained on the training set to identify patterns and relationships between biomarkers and the presence of ovarian cancer.</li>
+    <li><strong>Algorithm Selection:</strong> We choose the most appropriate ML algorithms based on the data and the type of predictions we want to make. Common algorithms include decision trees, random forests, and neural networks.</li>
+    <li><strong>Feature Engineering:</strong> We process the data to highlight the most relevant features (biomarkers) for predicting ovarian cancer.</li>
+    <li><strong>Model Evaluation:</strong> We test the model's performance using the testing set. Metrics such as accuracy, precision, and recall help us assess how well the model predicts ovarian cancer.</li>
+    <li><strong>Optimization:</strong> Based on the evaluation results, we fine-tune the model to enhance its predictive power and accuracy.</li>
+    <li><strong>Prediction:</strong> Once trained and optimized, the model can analyze new data from women and predict the likelihood of ovarian cancer based on the identified patterns.</li>
+</ol>
+
+
+<h3>Our Achievements</h3>
+<p>Our machine learning model has achieved a remarkable 91% accuracy in predicting ovarian cancer. This breakthrough offers a significant improvement in early detection, giving women a better chance at successful treatment and survival.</p>
+
+<h3>Moving Forward</h3>
+<p>While our model is a major advancement in the early detection of ovarian cancer, ongoing research is needed to validate and refine the model further. We are committed to continuing our work to improve the accuracy and reliability of our predictions, ultimately contributing to better health outcomes for women worldwide.</p>
+
+        </div>
+    
+        </div>
+
+          <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+              <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+            </div>
+        
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+              <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+              <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+            </ul>
+          </footer>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

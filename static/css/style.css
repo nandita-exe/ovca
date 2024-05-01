@@ -1,0 +1,64 @@
+body {
+    background-color: #fff0f6; 
+    /* background-color: #fce4ec;  */
+    /* background: linear-gradient(to bottom right, #fce4ec, #ffffff); 
+    animation: flowingGradient 10s ease infinite; */
+}
+/* You can add additional custom styles here */
+.navigation-bar a{
+    color: #ffffff;
+}
+a:hover{
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-underline-offset: 5px;
+}
+.active{
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-underline-offset: 5px;
+}
+.navigation-bar{
+    border-radius: 50px;
+    background: linear-gradient(to bottom right, #ff87e5, #ee256b); 
+    animation: flowingGradient 10s ease infinite;
+    /* background-color: rgb(226, 31, 96); */
+    
+}
+
+.hero-img{
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero{
+    border-radius: 15px;
+    border: 1px solid palevioletred;
+}
+.main-btn{
+    background-color: #ee256b;
+    color: white;
+}
+.main-btn:hover{
+    background-color: transparent;
+    color: #ee256b;
+    border: 1px solid #ee256b;
+}
+@keyframes flowingGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+form{
+    background-color: #ffffff;
+    padding: 1rem;
+}
