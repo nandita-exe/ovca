@@ -1,0 +1,6 @@
+[build]
+command = "pipenv install"
+publish = "/"
+
+[context.production.environment]
+PIPENV_RUNTIME = "python3.8"
