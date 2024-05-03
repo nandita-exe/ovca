@@ -5,6 +5,11 @@ name = "pypi"
  
 [packages]
 flask = "*"
- 
+
+
+
 [requires]
 python_version = "3.9"
+
+[build]
+  command = "pyton app.py"
